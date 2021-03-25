@@ -101,7 +101,8 @@ class Merger(object):
                              "`$ iconv -f {} -t utf-8 {}`".format(encoding, encoding.lower(), final_filename))
         if not encoding.lower().startswith('utf-8'):
             logger.warn("It's recommended to encode your file '{}' with the UTF-8 encoding, "
-                        "instead we found '{}', behavior is unexpected".format(final_filename, encoding))
+                        "this file might be '{}', but we will proceed as if it is UTF-8".format(final_filename, encoding))
+            encoding = 'utf-8'
 
         os.rename(final_filename, old_filename)
         self._run_genstrings(lang)
