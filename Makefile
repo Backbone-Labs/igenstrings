@@ -65,4 +65,4 @@ publish: clean
 	python setup.py publish
 
 install: clean
-	python setup.py develop
+	python3 setup.py develop

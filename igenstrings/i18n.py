@@ -35,12 +35,13 @@ class LocalizedFile(object):
             s_dict[s.key] = s
         return s_dict
 
-    def merge(self, other):
+    def merge(self, other, retainDeletedKeys=False):
         """
         Merge the current file strings with the given other file strings
         by taking any other string as the newer version
 
         :param: other another instance of `LocalizedFile`
+        :param: whether or not strings not appearing in the other file are retained in merged file.
         :return: the merged `LocalizedFile` instance
         """
         merged = LocalizedFile()
@@ -51,4 +52,8 @@ class LocalizedFile(object):
                 old_string.comment = new_string.comment
                 new_string = old_string
             merged.stringset.append(new_string)
+        if retainDeletedKeys:
+            for old_string in self.stringset:
+                if old_string.key not in other._get_stringsdict():
+                    merged.stringset.append(old_string)
         return merged

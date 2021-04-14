@@ -19,7 +19,11 @@ from .merger import Merger
 @click.option('--excluded-path',
     default=None,
     help='Regex for paths to exclude eg. ``./Folder1/*``')
-def main(path, debug, excluded_path):
+@click.option('--retain-existing-keys',
+    default=False,
+    is_flag=True,
+    help='Whether or not strings in the existing file are retained in the new file')
+def main(path, debug, excluded_path, retain_existing_keys):
     if debug:
         logging_level = logging.DEBUG
     else:
@@ -39,6 +43,9 @@ def main(path, debug, excluded_path):
     if logging_level == logging.DEBUG:
         click.echo(click.style('Debug mode is on', fg='red'))
 
-    merger = Merger(path, excluded_paths, logging_level=logging_level)
+    if retain_existing_keys:
+        click.echo(click.style("Retaining pre-existing strings", fg='green'))
+
+    merger = Merger(path, excluded_paths, retain_existing_keys, logging_level=logging_level)
     merger.merge_localized_strings()
     click.echo(click.style('Done', fg='green'))

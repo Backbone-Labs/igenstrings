@@ -19,10 +19,11 @@ STRINGS_FILE = 'Localizable.strings'
 
 class Merger(object):
 
-    def __init__(self, path, excluded_paths, logging_level=logging.INFO):
+    def __init__(self, path, excluded_paths, retainDeletedKeys, logging_level=logging.INFO):
         super(Merger, self).__init__()
         self.path = path
         self.excluded_paths = excluded_paths
+        self.retainDeletedKeys = retainDeletedKeys
         logger.level = logging_level
 
     def _find_encoding(self, filename):
@@ -39,7 +40,7 @@ class Merger(object):
         old.read(old_fname, encoding=encoding)
         new = LocalizedFile()
         new.read(new_fname, encoding=encoding)
-        merged = old.merge(new)
+        merged = old.merge(new, self.retainDeletedKeys)
         merged.save(merged_fname, encoding=encoding)
 
     def _get_languages(self):

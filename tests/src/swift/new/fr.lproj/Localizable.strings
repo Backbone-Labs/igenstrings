@@ -1,0 +1,15 @@
+/* title for the simple object */
+"Hello \nworld!" = "Hello \nworld!";
+
+/* title for the simple object */
+"Hi %@ !" = "Hi %@ !";
+
+/* title for the simple object */
+"Hi \"%@\" !" = "Hi \"%@\" !";
+
+/* subtitle for the simple object */
+"How are you doing today" = "How are you doing today";
+
+/* secret message (or not) */
+"Should be excluded from localization" = "Should be excluded from localization";
+
